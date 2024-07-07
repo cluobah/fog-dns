@@ -5,12 +5,12 @@ module Fog
     class PowerDNS
       class Real
         # Create a single zone in PowerDNS
-        # Server, name and nameservers LIST are required
+        # Server, name and kind are required
         #
         # ==== Parameters
         # * server<~String> - Server ID
         # * name<~String> - Name of domain
-        # * nameservers<~Array> - List of nameservers
+        # * kind<~String> - Zone kind, one of 'Native', 'Master', 'Slave', 'Producer', 'Consumer'
         # * options<~Hash> - Other options
         #
         # ==== Returns
@@ -38,10 +38,11 @@ module Fog
         #     * 'comments': <~Array>,
         #   * status<~Integer>  201 when successful
 
-        def create_zone(server, name, nameservers, options = {})
+        def create_zone(server, name, kind, options = {})
           body = {
             'name' => name,
-            'nameservers' => nameservers
+            'kind' => kind,
+            'nameservers' => []
           }
 
           options.each do |option, value|
