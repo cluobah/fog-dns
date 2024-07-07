@@ -20,7 +20,7 @@ module Fog
         end
 
         def get(zone)
-          data = service.get_zone(DEFAULT_SERVER, zone).body['zone']
+          data = service.get_zone(DEFAULT_SERVER, zone)
           zone = new(data)
           zone
         rescue Fog::Service::NotFound
