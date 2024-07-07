@@ -9,16 +9,18 @@ module Fog
       class Zones < Fog::Collection
         model Fog::DNS::PowerDNS::Zone
 
+        DEFAULT_SERVER = 'localhost'
+        
         # attribute :zone,    :aliases => 'name'
 
         def all
           clear
-          data = service.list_zones.body
+          data = service.list_zones(DEFAULT_SERVER)
           load(data)
         end
 
         def get(zone)
-          data = service.get_zone(zone).body['zone']
+          data = service.get_zone(DEFAULT_SERVER, zone)
           zone = new(data)
           zone
         rescue Fog::Service::NotFound
