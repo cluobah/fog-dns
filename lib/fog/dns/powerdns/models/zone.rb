@@ -9,7 +9,10 @@ module Fog
         identity :zone_id
 
         attribute :zone, aliases: 'name'
+        attribute :kind
         attribute :server_id
+
+        DEFAULT_SERVER = 'localhost'
 
         def destroy
           service.delete_zone(identity)
@@ -27,8 +30,8 @@ module Fog
         end
 
         def save
-          requires :zone
-          data = service.create_zone(zone).body['zone']
+          requires :zone, :kind
+          data = service.create_zone(DEFAULT_SERVER, zone, kind)
           merge_attributes(data)
           true
         end
