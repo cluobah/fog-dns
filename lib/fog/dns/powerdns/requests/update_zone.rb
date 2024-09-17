@@ -46,7 +46,7 @@ module Fog
 
           request(
             body: Fog::JSON.encode(body),
-            expects: 200,
+            expects: 204,
             method: 'PUT',
             path: "/api/#{@api_version}/servers/#{server}/zones/#{zone}"
           ).body
